@@ -9,12 +9,9 @@ CACHE:
 app2usb.js
 dumper.js
 blob.js
-kernel-dumper.js
 ftp.js
-enable-updates.js
 enable-browser.js
 disable-updates.js
-history-blocker.js
 backup.js
 app-dumper.js
 index.html
