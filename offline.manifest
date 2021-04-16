@@ -1,0 +1,27 @@
+CACHE MANIFEST 
+# v4 
+# 16/04/2021-18:58:42,29 
+
+
+CACHE: 
+
+binloader.html
+c-code.js
+c-code0.js
+c-code1.js
+c-code5.js
+Cache.manifest
+index.html
+Mira.html
+mira0.js
+payload.html
+payload0.html
+payload1.html
+payload5.html
+README.md
+
+FALLBACK: 
+index.html 
+
+NETWORK: 
+* 
