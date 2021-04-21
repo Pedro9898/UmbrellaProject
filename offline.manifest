@@ -1,24 +1,51 @@
 CACHE MANIFEST 
 # v4 
-# 16/04/2021-18:58:42,29 
+# 16/04/2021-19:10:28,77 
 
 
 CACHE: 
 
+750.js
+app-dumper.js
+app2usb.js
+backup.js
 binloader.html
+blob.js
 c-code.js
 c-code0.js
 c-code1.js
 c-code5.js
-Cache.manifest
+disable-updates.js
+enable-browser.js
+enable-updates.js
+exploit.js
+ftp.js
+history-blocker.js
 index.html
+int64.js
+jb.c
+jb.js
+kernel-clock.js
+kernel-dumper.js
 Mira.html
 mira0.js
+mira1.js
+mira5.js
+mira50.js
+mira51.js
+mira55.js
+netcat.js
 payload.html
 payload0.html
 payload1.html
 payload5.html
+ps4.js
+ps4debug.js
 README.md
+restore.js
+todex.js
+umbrella.jpg
+utils.js
 
 FALLBACK: 
 index.html 
