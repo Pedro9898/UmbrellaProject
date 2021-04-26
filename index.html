@@ -24,24 +24,12 @@
 </script>
 <h1 align="center"><div id="ScrOverlay" class="cacheUPDbg"><pre id="cacheUPDtxt" class="cacheUPD"></pre><div id="CacheProgress"><div id="CacheBar"></div></div></div>
 <script>
-function DLProgress(e){
-	parent.ScrOverlay.style.display="block";
-	Percent=(Math.round(e.loaded / e.total * 100));
-	parent.cacheUPDtxt.innerHTML="Installing Offline Cache: " + Percent + "%";
-	parent.CacheBar.style.width=Percent + '%';
-}
-function DisplayCacheProgress(){
-	setTimeout(function(){parent.cacheUPDtxt.innerHTML="Cache Installed Successfully.Turn off Internet & Reopen the Browser!!";},1000);}
-	window.applicationCache.addEventListener("progress",DLProgress,false);
-	window.applicationCache.oncached=function(e){DisplayCacheProgress();};
-	window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
-	window.applicationCache.onerror=function(e){parent.cacheUPDtxt.innerHTML="Error Installing Cache";
-};
+
 </script>
 <style>
 html, body { background-image: url('https://i.pinimg.com/originals/81/36/13/81361319783959af123d03a8ab39aee0.jpg'); background-attachment: fixed; background-size: 100%; background-repeat: no-repeat; background-position: center; background-repeat: no-repeat; background-size: cover; }
 h1 {
-text-shadow: 0.1em 0.1em 0.1em red;
+text-shadow: 0.1em 0.1em 0.1em white;
 font-size:25px;
 text-align:center;
 color:black;
@@ -86,13 +74,13 @@ transition-duration: 0.4s;
 cursor: pointer;
 }
 .btn-main {
-background-color: gray;
-color: red;
+background-color: blue;
+color: white;
 border-radius: 20px;
 }
 .btn-main:hover {
 background-color: transparent;
-color: red;
+color: white;
 border-radius: 25px;
 }
 .btn-payl:hover {
