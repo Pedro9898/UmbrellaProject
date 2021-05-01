@@ -3,4 +3,5 @@
 new:
 Offline Cache ;
 ToDex: updated script ;
-Hen 213b ported to all 7.5X by Karo
+Hen 213b ported to all 7.5X by Karo;
+new exploit code by sleirs
